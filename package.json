@@ -5,7 +5,11 @@
   "author": "Pedro Cardoso <peedro.shell@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@types/node": "^22.3.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
