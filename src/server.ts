@@ -17,6 +17,10 @@ app.get('/', async (_, response) => {
 
 io.on('connection', (socket) => {
   console.log(socket.id + ' connected.')
+
+  socket.on('chat message', data => {
+    io.emit('chat message', data)
+  })
 })
 
 server.listen(port, () => {

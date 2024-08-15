@@ -1,15 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <title>Chat</title>
 </head>
+
 <body>
-  <h1>Home</h1>
+  <div class="container">
+    <div id="messages">
+    </div>
+    <form id="form">
+      <input id="input" type="text" placeholder="Type a message" autocomplete="off">
+      <button type="submit">Send</button>
+    </form>
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', data => {
+      const messages = document.getElementById('messages')
+      const message = document.createElement('div')
+      const text = document.createElement('p')
+      text.innerText = data
+      message.appendChild(text)
+      messages.appendChild(message)
+
+      messages.scrollTo(0, document.body.scrollHeight)
+    })
   </script>
 </body>
+
 </html>
